@@ -7,10 +7,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Optional;
 
+@Service
 public class UserDetailsProvider implements UserDetailsService {
     private final BaseUserRepo baseUserRepo;
 
@@ -22,7 +24,7 @@ public class UserDetailsProvider implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<BaseUser> user = this.baseUserRepo.findBaseUserByUsername(username);
         if (user.isEmpty()) {
-            throw new UsernameNotFoundException("No user with such name found!");
+            throw new UsernameNotFoundException("No user with such username found!");
         }
         return new User(
                 user.get().getUsername(),
