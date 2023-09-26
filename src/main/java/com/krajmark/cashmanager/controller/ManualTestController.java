@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ManualTestController {
-    @GetMapping({"/", "/asd"})
+    @GetMapping("/asd")
     public String manualTestEndpoint(Model model) {
         model.addAttribute("asd_attr", "ASD");
         return "asd";
