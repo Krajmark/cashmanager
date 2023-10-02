@@ -34,4 +34,21 @@ public class UserManagementController {
         }
         return "redirect:/register";
     }
+
+    @GetMapping("/login")
+    public String loginView(Model model) {
+        model.addAttribute("user", new RegisterFormUserDTO("", ""));
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginAction(@ModelAttribute RegisterFormUserDTO user) {
+        if (this.userManagementService.userAlreadyExists(user)) {
+            return "redirect:/login";
+        }
+        if (this.userManagementService.registerUser(user)) {
+            return "redirect:/login";
+        }
+        return "redirect:/login";
+    }
 }
