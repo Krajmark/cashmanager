@@ -26,6 +26,9 @@ public class WebSecurityConfiguration {
                                 .usernameParameter("username")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/asds")
+                )
+                .logout(
+                        (logout) -> logout.permitAll()
                 );
 
         return http.build();
