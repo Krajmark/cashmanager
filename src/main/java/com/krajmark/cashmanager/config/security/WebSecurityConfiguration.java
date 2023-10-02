@@ -19,13 +19,15 @@ public class WebSecurityConfiguration {
                         .requestMatchers("/", "/register", "/login", "/asd", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form.permitAll())
-                .logout((logout) -> logout.permitAll());
                 .formLogin(
                         (form) -> form.permitAll()
                                 .loginProcessingUrl("/login")
                                 .loginPage("/login")
+                                .usernameParameter("username")
+                                .passwordParameter("password")
+                                .defaultSuccessUrl("/asds")
                 )
+                .logout((logout) -> logout.permitAll());
 
         return http.build();
     }
