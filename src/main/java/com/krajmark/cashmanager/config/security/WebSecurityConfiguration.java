@@ -16,18 +16,17 @@ public class WebSecurityConfiguration {
         http
                 .authorizeHttpRequests(
                         (requests) -> requests
-                        .requestMatchers("/", "/register", "/login", "/asd", "/images/**").permitAll()
-                        .anyRequest().authenticated()
+                                .requestMatchers("/", "/register", "/login", "/asd", "/images/**").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .formLogin(
-                        (form) -> form.permitAll()
+                        (form) -> form
                                 .loginProcessingUrl("/login")
                                 .loginPage("/login")
                                 .usernameParameter("username")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/asds")
-                )
-                .logout((logout) -> logout.permitAll());
+                );
 
         return http.build();
     }
