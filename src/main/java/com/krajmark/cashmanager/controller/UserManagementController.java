@@ -19,14 +19,26 @@ public class UserManagementController {
     }
 
     @GetMapping("/register")
-    public String registerView(Model model) {
-        model.addAttribute("user", new RegisterFormUserDTO("", ""));
+    public String registerView(
+            Model model,
+            @ModelAttribute String usernameAlreadyInUse,
+            @ModelAttribute RegisterFormUserDTO user
+    ) {
+        if (!usernameAlreadyInUse.isBlank()) {
+            model.addAttribute("usernameAlreadyInUse", usernameAlreadyInUse);
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("user", new RegisterFormUserDTO("", ""));
+        }
         return "register";
     }
 
     @PostMapping("/register")
     public String registerAction(@ModelAttribute RegisterFormUserDTO user, RedirectAttributes redirectAttributes) {
         if (this.userManagementService.userAlreadyExists(user)) {
+            String usernameAlreadyInUse = "Username already in use";
+            redirectAttributes.addFlashAttribute(usernameAlreadyInUse);
+            redirectAttributes.addFlashAttribute(user);
             return "redirect:/register";
         }
         if (this.userManagementService.registerUser(user)) {
