@@ -24,7 +24,18 @@
                                 th:action="@{/register}"
                                 th:object="${user}">
 
-                            <div class="alert alert-danger" th:if="|${!#strings.isEmpty(usernameAlreadyInUse)}|" th:utext="|${usernameAlreadyInUse}|"></div>
+                            <div class="alert alert-danger"
+                                 th:if="|${!#strings.isEmpty(usernameAlreadyInUse)}|"
+                                 th:utext="|${usernameAlreadyInUse}|">
+                            </div>
+
+                            <p th:if="${#fields.hasErrors('password')}"
+                               th:errors="*{password}" class="text-danger">
+                            </p>
+
+                            <p th:if="${#fields.hasErrors('username')}"
+                               th:errors="*{password}" class="text-danger">
+                            </p>
 
                             <div class="form-outline mb-4">
                                 <input type="text" id="username" th:field="*{username}" name="username"

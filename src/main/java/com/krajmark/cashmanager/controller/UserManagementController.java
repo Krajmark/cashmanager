@@ -2,8 +2,10 @@ package com.krajmark.cashmanager.controller;
 
 import com.krajmark.cashmanager.dto.RegisterFormUserDTO;
 import com.krajmark.cashmanager.service.UserManagementService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +36,16 @@ public class UserManagementController {
     }
 
     @PostMapping("/register")
-    public String registerAction(@ModelAttribute RegisterFormUserDTO user, RedirectAttributes redirectAttributes) {
+    public String registerAction(
+            Model model,
+            @Valid @ModelAttribute RegisterFormUserDTO user,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes
+    ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
+            return "register";
+        }
         if (this.userManagementService.userAlreadyExists(user)) {
             String usernameAlreadyInUse = "Username already in use";
             redirectAttributes.addFlashAttribute(usernameAlreadyInUse);
