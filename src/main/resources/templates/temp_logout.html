@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <div th:replace="~{fragments/bootstrapFragments :: link}"></div>
+    <title>Logout page</title>
+</head>
+<body>
+<section class="d-flex align-items-center justify-content-center vh-100"
+         style="
+         background-repeat: no-repeat;
+         background-position: center;
+         background-size: cover;"
+         th:styleappend="'background-image: url(/images/hospital_exit-6139216_1920.jpg);'">
+    <div class="container h-auto">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-10 col-lg-8 col-xl-6 h-100">
+                <div class="card bg-danger-subtle h-100 " style="border-radius: 15px;">
+                    <div class="card-body h-100 p-5">
+                        <h2 class="card-title text-center mb-5">Goodbye!</h2>
+                        <form
+                                class=""
+                                method="post"
+                                th:action="@{/logout}">
+
+                            <div class="d-flex align-items-stretch justify-content-center">
+                                <button type="submit"
+                                        class="btn btn-danger btn-block btn-lg text-body">
+                                    Logout
+                                </button>
+                            </div>
+
+                            <p class="text-center text-muted mt-5 mb-0">Sure you want to leave?
+                                <a href="#!"
+                                   th:href="@{/}"
+                                   class="fw-bold text-body">
+                                    <u>Back to home</u>
+                                </a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="~{fragments/bootstrapFragments :: script}"></div>
+</body>
+</html>

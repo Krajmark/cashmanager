@@ -28,7 +28,9 @@ public class WebSecurityConfiguration {
                                 .defaultSuccessUrl("/asds")
                 )
                 .logout(
-                        (logout) -> logout.permitAll()
+                        (logout) -> logout
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/")
                 );
 
         return http.build();

@@ -50,4 +50,10 @@ public class UserManagementController {
         }
         return "redirect:/login";
     }
+
+    @GetMapping("/logout")
+    public String loadLogoutPage() {
+
+        return "temp_logout";
+    }
 }
