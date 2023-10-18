@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserManagementController {
@@ -24,19 +25,24 @@ public class UserManagementController {
     }
 
     @PostMapping("/register")
-    public String registerAction(@ModelAttribute RegisterFormUserDTO user) {
+    public String registerAction(@ModelAttribute RegisterFormUserDTO user, RedirectAttributes redirectAttributes) {
         if (this.userManagementService.userAlreadyExists(user)) {
             return "redirect:/register";
         }
         if (this.userManagementService.registerUser(user)) {
+            redirectAttributes.addFlashAttribute(user);
             return "redirect:/login";
         }
         return "redirect:/register";
     }
 
     @GetMapping("/login")
-    public String loginView(Model model) {
-        model.addAttribute("user", new RegisterFormUserDTO("", ""));
+    public String loginView(Model model, @ModelAttribute RegisterFormUserDTO user) {
+        if (user.username() != null) {
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("user", new RegisterFormUserDTO("", ""));
+        }
         return "login";
     }
 
