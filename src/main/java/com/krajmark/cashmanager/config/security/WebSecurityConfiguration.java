@@ -25,7 +25,7 @@ public class WebSecurityConfiguration {
                                 .loginPage("/login")
                                 .usernameParameter("username")
                                 .passwordParameter("password")
-                                .defaultSuccessUrl("/asds")
+                                .defaultSuccessUrl("/logout")
                 )
                 .logout(
                         (logout) -> logout
